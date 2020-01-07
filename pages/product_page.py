@@ -17,7 +17,17 @@ class ProductPage(BasePage):
         return product
 
     def should_be_added_to_basket(self, product_name):
-        assert product_name == self.browser.find_element(*ProductPageLocators.ADDED_PRODUCT_TEXT).text, "The name of the product differs"
+        assert product_name == self.browser.find_element(
+            *ProductPageLocators.ADDED_PRODUCT_TEXT).text, "The name of the product differs"
 
     def should_be_product_price(self, product_price):
-        assert product_price == self.browser.find_element(*ProductPageLocators.BASKET_PRICE_TEXT).text, "The price in the basket differs"
+        assert product_price == self.browser.find_element(
+            *ProductPageLocators.BASKET_PRICE_TEXT).text, "The price in the basket differs"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ADDED_PRODUCT_TEXT), \
+            "Success message is presented, but should not be"
+
+    def should_be_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.ADDED_PRODUCT_TEXT), \
+            "Success message is presented, but should not be"
